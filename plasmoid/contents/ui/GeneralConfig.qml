@@ -11,8 +11,11 @@ Item {
     property alias cfg_opacity: opacitySpinBox.value
 
     property string cfg_preferredSource
+    property alias cfg_alignment: alignmentsComboBox.currentIndex
 
 	property string cfg_fontFamily
+
+    property var alignments: ["Left", "Right"]
 
     ColumnLayout {
         spacing: units.smallSpacing * 2
@@ -83,6 +86,34 @@ Item {
                     cfg_fontFamily=current
                     configRoot.configurationChanged()
                 }
+            }
+        }
+
+        RowLayout{
+
+            Label {
+                text: i18n("Alignment")
+            }
+
+            ListModel {
+                id: alignmentsModel
+                Component.onCompleted: {
+                    var arr = []
+                    for (var i = 0, j = alignments.length; i < j; ++i) {
+                        arr.push({
+                            "label": alignments[i],
+                            "value": i
+                        })
+                    }
+                    append(arr)
+                }
+            }
+
+            ComboBox {
+                id: alignmentsComboBox
+                model: alignmentsModel
+                focus: true
+                textRole: "label"
             }
         }
 
