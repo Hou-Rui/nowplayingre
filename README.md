@@ -30,6 +30,14 @@ Otherwise, you can install it using your terminal and git:
 
         kpackagetool5 -t Plasma/Applet -i plasmoid
 
-You will be able to find this widget in the `Add Widget` Mmnu
+You will be able to find this widget in the `Add Widget` Menu
 
+--------
+# Screenshots
+
+- Right Aligned:
+![](https://images.pling.com/img/00/00/64/02/87/1667297/screenshot-20211218-155155.png)
+
+- Left Aligned:
+![](https://images.pling.com/img/00/00/64/02/87/1667297/screenshot-20211218-155355.png)
 
