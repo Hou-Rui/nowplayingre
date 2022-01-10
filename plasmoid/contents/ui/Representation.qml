@@ -1,15 +1,17 @@
 import QtQuick 2.12
 import QtQuick.Layouts 1.11
 import QtQuick.Controls 2.12
+import QtGraphicalEffects 1.0
 import org.kde.plasma.components 3.0 as PlasmaComponents
 import org.kde.plasma.core 2.0 as PlasmaCore
 
 GridLayout {
     id: fullView
     focus: true
+    columnSpacing: 10
 
     readonly property var alignmentOpts: [
-        {   
+        {
             "flow": GridLayout.LeftToRight,
             "columns": -1,
             "rows": 1,
@@ -50,47 +52,6 @@ GridLayout {
                 "height": 1
             }
         },
-        // {
-        //     "flow": GridLayout.TopToBottom,
-        //     "columns": 1,
-        //     "rows": -1,
-        //     "layoutDirection": Qt.LeftToRight,
-        //     "track": {
-        //         "horizontalAlignment": Text.AlignCenter,
-        //         "alignment": Qt.AlignCenter,
-        //         "elide": Text.ElideNone
-        //     },
-        //     "title": {
-        //         "horizontalAlignment": Text.AlignCenter,
-        //         "alignment": Qt.AlignCenter,
-        //     },
-        //     "separator": {
-        //         "fillWidth": false,
-        //         "fillHeight": true,
-        //         "width": 1,
-        //         "height": 1
-        //     }
-        // },{
-        //     "flow": GridLayout.TopToBottom,
-        //     "columns": 1,
-        //     "rows": -1,
-        //     "layoutDirection": Qt.RightToLeft,
-        //     "track": {
-        //         "horizontalAlignment": Text.AlignCenter,
-        //         "alignment": Qt.AlignCenter,
-        //         "elide": Text.ElideNone
-        //     },
-        //     "title": {
-        //         "horizontalAlignment": Text.AlignCenter,
-        //         "alignment": Qt.AlignCenter,
-        //     },
-        //     "separator": {
-        //         "fillWidth": true,
-        //         "fillHeight": false,
-        //         "width": 1,
-        //         "height": 1
-        //     }
-        // }
     ]
 
     readonly property var alignmentOption: alignmentOpts[plasmoid.configuration.alignment]
@@ -125,21 +86,37 @@ GridLayout {
             id: nowPlayingColumn
             Label {
                 id: nowPlayingLabel1
-                Layout.alignment: alignmentOption.title.alignment 
+                Layout.alignment: alignmentOption.title.alignment
                 text: "NOW"
-                lineHeight: 0.8
-                font.pixelSize: 16
+                color: "white"
+                lineHeight: 1.0
+                font.pixelSize: 18
                 font.bold: true
                 font.family: plasmoid.configuration.fontFamily
+                layer.enabled: true
+                layer.effect: DropShadow {
+                    verticalOffset: 2
+                    color: "#80000000"
+                    radius: 3
+                    samples: 3
+                }
             }
             Label {
                 id: nowPlayingLabel2
-                Layout.alignment: alignmentOption.title.alignment 
+                Layout.alignment: alignmentOption.title.alignment
                 text: "PLAYING"
-                lineHeight: 0.8
+                color: "white"
+                lineHeight: 1.0
                 font.bold: true
-                font.pixelSize: 16
+                font.pixelSize: 18
                 font.family: plasmoid.configuration.fontFamily
+                layer.enabled: true
+                layer.effect: DropShadow {
+                    verticalOffset: 2
+                    color: "#80000000"
+                    radius: 3
+                    samples: 3
+                }
             }
             RowLayout {
                 id: mediaControls
@@ -156,10 +133,18 @@ GridLayout {
                         source: "media-skip-backward"
                     }
                     padding: 0
+                    topPadding: 5
                     background: null
                     onClicked: {
                         root.mediaPrev()
                         console.log("prev clicked")
+                    }
+                    layer.enabled: true
+                    layer.effect: DropShadow {
+                        verticalOffset: 2
+                        color: "#80000000"
+                        radius: 3
+                        samples: 3
                     }
                 }
                 Button {
@@ -167,13 +152,21 @@ GridLayout {
                     id: playButton
                     contentItem: PlasmaCore.IconItem {
                         source: mediaSource.playbackStatus
-                                === "Playing" ? "media-playback-start" : "media-playback-pause"
+                        === "Playing" ? "media-playback-pause" : "media-playback-start"
                     }
                     padding: 0
+                    topPadding: 5
                     background: null
                     onClicked: {
                         root.mediaToggle()
                         console.log("pause clicked")
+                    }
+                    layer.enabled: true
+                    layer.effect: DropShadow {
+                        verticalOffset: 2
+                        color: "#80000000"
+                        radius: 3
+                        samples: 3
                     }
                 }
                 Button {
@@ -187,17 +180,26 @@ GridLayout {
                         console.log("next clicked")
                     }
                     padding: 0
+                    topPadding: 5
                     background: null
+                    layer.enabled: true
+                    layer.effect: DropShadow {
+                        verticalOffset: 2
+                        color: "#80000000"
+                        radius: 3
+                        samples: 3
+                    }
                 }
             }
         }
     }
     Rectangle {
         id: separator
-        height: alignmentOption.separator.height
+        height: alignmentOption.separator.height - 30
         width: alignmentOption.separator.width
         Layout.fillWidth: alignmentOption.separator.fillWidth
-        Layout.fillHeight: alignmentOption.separator.fillHeight
+        Layout.fillHeight: alignmentOption.separator.fillHeight - 30
+        color: "grey"
     }
     ColumnLayout {
         Layout.fillWidth: true
@@ -206,32 +208,47 @@ GridLayout {
             id: trackLabel
             font.family: plasmoid.configuration.fontFamily
             text: mediaSource.track
-            Layout.alignment: alignmentOption.track.alignment 
+            Layout.alignment: alignmentOption.track.alignment
             Layout.fillWidth: true
-            font.pixelSize: 28
+            font.pixelSize: 36
             // color: "red"
-            lineHeight: 0.8
+            lineHeight: 1.0
             font.bold: true
             wrapMode: Text.Wrap
             maximumLineCount: 2
-            elide: alignmentOption.track.elide 
-            horizontalAlignment: alignmentOption.track.horizontalAlignment 
+            elide: alignmentOption.track.elide
+            horizontalAlignment: alignmentOption.track.horizontalAlignment
+            layer.enabled: true
+            layer.effect: DropShadow {
+                verticalOffset: 2
+                color: "#80000000"
+                radius: 3
+                samples: 3
+            }
         }
         PlasmaComponents.Label {
             id: artistLabel
             font.family: plasmoid.configuration.fontFamily
-            elide: alignmentOption.track.elide 
-            Layout.alignment: alignmentOption.track.alignment 
+            elide: alignmentOption.track.elide
+            Layout.alignment: alignmentOption.track.alignment
             Layout.minimumWidth: 200
             Layout.preferredWidth: trackLabel.width / 2
             Layout.fillWidth: true
             text: mediaSource.artist
-            font.pixelSize: 26
+            font.pixelSize: 30
             wrapMode: Text.Wrap
             maximumLineCount: 2
-            horizontalAlignment: alignmentOption.track.horizontalAlignment 
+            horizontalAlignment: alignmentOption.track.horizontalAlignment
             // color: "red"
-            lineHeight: 0.8
+            lineHeight: 1.0
+            layer.enabled: true
+            layer.effect: DropShadow {
+                verticalOffset: 2
+                color: "#80000000"
+                radius: 3
+                samples: 3
+            }
         }
     }
 }
+

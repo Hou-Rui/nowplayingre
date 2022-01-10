@@ -1,5 +1,8 @@
 # Now Playing RE
 
+Forked from https://gitlab.com/eduardoforca/nowplayingre
+Adjust font size and spacing, add shadows to text and controls like builtin plasmoids.
+
 KDE STORE:
 
 https://store.kde.org/p/1667297
